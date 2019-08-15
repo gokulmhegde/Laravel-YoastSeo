@@ -1,71 +1,93 @@
 <template>
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-               <form @submit.prevent="showSomething">
-
-                  <h3>Yoast form</h3>
-                  <hr>
-
-                  <div class="alert alert-danger" role="alert">
-                    <h4>* Required fields</h4>
-                    <ul class="list-group">
-                        <li class="list-group-item">[text]                   The text to use in the analysis.</li>
-                        <li class="list-group-item">[attributes.keyword]     The main keyword.</li>
-                        <li class="list-group-item">[attributes.synonyms]    The main keyword's synonyms.</li>
-                        <li class="list-group-item">[attributes.title]       The SEO title.</li>
-                        <li class="list-group-item">[attributes.description] The SEO description.</li>
-                        <li class="list-group-item">[attributes.titleWidth]  The width of the title in pixels.</li>
-                        <li class="list-group-item">[attributes.url]         The slug.</li>
-                        <li class="list-group-item">[attributes.permalink]   The base url + slug.</li>
-                        <li class="list-group-item">[attributes.locale]      The locale.</li>
-                    </ul>
+        <div class="row">
+            <div class="col-md-12 py-3 ">
+               <form @submit.prevent="yoastFormSubmit" id="formSubmit">
+                  <div class="alert alert-info" role="alert">
+                    <h3>Yoast form</h3>
+                    <hr>
+                    <dl class="row">
+                      <dt class="col-sm-3">[text]</dt>
+                      <dd class="col-sm-9">The text to use in the analysis.</dd>
+                      <dt class="col-sm-3">[attributes.keyword]</dt>
+                      <dd class="col-sm-9">The main keyword.</dd>
+                      <dt class="col-sm-3">[attributes.synonyms]</dt>
+                      <dd class="col-sm-9">The main keyword's synonyms.</dd>
+                      <dt class="col-sm-3">[attributes.title]</dt>
+                      <dd class="col-sm-9">The SEO title.</dd>
+                      <dt class="col-sm-3">[attributes.description]</dt>
+                      <dd class="col-sm-9">The SEO description.</dd>
+                      <dt class="col-sm-3">[attributes.titleWidth]</dt>
+                      <dd class="col-sm-9">The width of the title in pixels.</dd>
+                      <dt class="col-sm-3">[attributes.url]</dt>
+                      <dd class="col-sm-9">The slug.</dd>
+                      <dt class="col-sm-3">[attributes.permalink]</dt>
+                      <dd class="col-sm-9">The base url + slug.</dd>
+                      <dt class="col-sm-3">[attributes.locale]</dt>
+                      <dd class="col-sm-9">The locale.</dd>
+                    </dl>
                   </div>
                   <hr>
 
                   <div class="form-group">
                     <label for="exampleFormControlTextarea1">Text</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="text"></textarea>
+                    <textarea class="form-control" :class="{'input': true, 'is-danger': errors.has('text') }" v-validate="'required'" id="exampleFormControlTextarea1" rows="3" v-model="text" name="text" placeholder="text"></textarea>
+                    <i v-show="errors.has('text')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('text')" class="help is-danger">{{ errors.first('text') }}</span>
                   </div>
 
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Keyword</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="keyword" v-model="keyword">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="keyword" v-model="keyword" name="keyword" :class="{'input': true, 'is-danger': errors.has('keyword') }" v-validate="'required'">
+                    <i v-show="errors.has('keyword')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('keyword')" class="help is-danger">{{ errors.first('keyword') }}</span>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Synonyms</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="synonyms" v-model="synonyms" name="synonyms" :class="{'input': true, 'is-danger': errors.has('synonyms') }" v-validate="'required'">
+                    <i v-show="errors.has('synonyms')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('synonyms')" class="help is-danger">{{ errors.first('synonyms') }}</span>
                   </div>
 
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Title</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="title" v-model="title">
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="title" v-model="title" name="title" :class="{'input': true, 'is-danger': errors.has('title') }" v-validate="'required'">
+                    <i v-show="errors.has('title')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('title')" class="help is-danger">{{ errors.first('title') }}</span>
                   </div>
 
                   <div class="form-group">
                     <label for="exampleFormControlInput1">Title width</label>
-                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="title" v-model="titleWidth" value="920">
+                    <input type="number" class="form-control" :class="{'input': true, 'is-danger': errors.has('titleWidth') }" v-validate="'required'" id="exampleFormControlInput1" placeholder="titleWidth" v-model="titleWidth" value="920" name="titleWidth">
+                    <i v-show="errors.has('titleWidth')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('titleWidth')" class="help is-danger">{{ errors.first('titleWidth') }}</span>
                   </div>
                   
                   <div class="form-group">
                     <label for="exampleFormControlTextarea1">Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="description" placeholder="description"></textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="description" placeholder="description" name="description" :class="{'input': true, 'is-danger': errors.has('description') }" v-validate="'required'"></textarea>
+                    <i v-show="errors.has('description')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('description')" class="help is-danger">{{ errors.first('description') }}</span>
                   </div>
 
                   <div class="form-group">
                     <label for="exampleFormControlTextarea1">URL</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="url" v-model="url">
+                    <input type="text" class="form-control" :class="{'input': true, 'is-danger': errors.has('url') }" v-validate="'required'" id="exampleFormControlInput1" placeholder="url" v-model="url" name="url">
+                    <i v-show="errors.has('url')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('url')" class="help is-danger">{{ errors.first('url') }}</span>
                   </div>
 
                   <div class="form-group">
                     <label for="exampleFormControlTextarea1">Permalink</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="permalink" v-model="permalink">
-                  </div>
-
-                  <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Meta description</label>
-                    <textarea class="form-control" id="exampleFormControlInput1" placeholder="metaDescription" rows="3" v-model="metaDescription"></textarea>
+                    <input type="text" class="form-control" :class="{'input': true, 'is-danger': errors.has('permalink') }" v-validate="'required'" id="exampleFormControlInput1" placeholder="permalink" v-model="permalink" name="permalink">
+                    <i v-show="errors.has('permalink')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('permalink')" class="help is-danger">{{ errors.first('permalink') }}</span>
                   </div>
 
                   <div class="form-group">
                     <label for="exampleFormControlSelect1">Select locale</label>
-                    <select class="form-control" id="exampleFormControlSelect1" v-model="en_locale">
+                    <select class="form-control" :class="{'input': true, 'is-danger': errors.has('en_locale') }" v-validate="'required'" id="exampleFormControlSelect1" v-model="en_locale" name="en_locale">
                         <option value='af'>af</option>
                         <option value='af_NA'>af_NA</option>
                         <option value='af_ZA'>af_ZA</option>
@@ -240,7 +262,7 @@
                         <option value='en_TZ'>en_TZ</option>
                         <option value='en_UG'>en_UG</option>
                         <option value='en_UM'>en_UM</option>
-                        <option value='en_US' selected>en_US</option>
+                        <option value='en_US'>en_US</option>
                         <option value='en_VC'>en_VC</option>
                         <option value='en_VG'>en_VG</option>
                         <option value='en_VI'>en_VI</option>
@@ -631,11 +653,33 @@
                         <option value='zu'>zu</option>
                         <option value='zu_ZA'>zu_ZA</option>
                     </select>
+                    <i v-show="errors.has('en_locale')" class="fa fa-warning"></i>
+                    <span v-show="errors.has('en_locale')" class="help is-danger">{{ errors.first('en_locale') }}</span>
                   </div>
 
                   <button type="submit" class="btn btn-primary">Generate data</button>
 
                 </form> 
+            </div>
+            
+            <div v-if="seo.length" class=" border-top mb-3 col-md-12 seo-output output" id="output">
+                  <h3>SEO assessments</h3>
+                  <ul class="seoanalysis assessment-results">
+                        <li class="score d-flex" v-for="item in seo">
+                              <span class="seo-score-icon" :class="item.rating"></span>
+                              <span class="seo-score-text" v-html="item.text"></span>
+                        </li>
+                  </ul>
+            </div>
+
+            <div v-if="content.length" class="border-top mb-3 col-md-12 seo-output output" id="output">
+                  <h3>Content assessments</h3>
+                  <ul class="seoanalysis assessment-results">
+                        <li class="score d-flex" v-for="item in content">
+                              <span class="seo-score-icon" :class="item.rating"></span>
+                              <span class="seo-score-text" v-html="item.text"></span>
+                        </li>
+                  </ul>
             </div>
             
         </div>
@@ -659,34 +703,43 @@
                 title: '',
                 description: '',
                 url: '',
-                metaDescription: '',
                 titleWidth: '',
                 en_locale: 'en_US',
-                permalink: ''
+                permalink: '',
+                synonyms: '',
+                seo: [],
+                content: []
             }
         },
         methods: {
-            showSomething(){
-                const paper = new Paper(this.text, {
-                    keyword: this.keyword,
-                    title: this.title,
-                    description: this.description,
-                    url: this.url,
-                    metaDescription: this.metaDescription,
-                    titleWidth: this.titleWidth,
-                    locale: this.en_locale,
-                    permalink: this.permalink
-                });
+            yoastFormSubmit(){
+                  this.$validator.validateAll().then((result) => {
+                    if (result) {
+                      const paper = new Paper(this.text, {
+                          keyword: this.keyword,
+                          title: this.title,
+                          description: this.description,
+                          url: this.url,
+                          metaDescription: this.metaDescription,
+                          titleWidth: this.titleWidth,
+                          locale: this.en_locale,
+                          permalink: this.permalink
+                      });
 
-                const contentAssessor = new ContentAssessor(this.i18n());
-                const seoAssessor = new SEOAssessor(this.i18n());
+                      const contentAssessor = new ContentAssessor(this.i18n());
+                      const seoAssessor = new SEOAssessor(this.i18n());
 
-                contentAssessor.assess(paper);
-                seoAssessor.assess(paper);
+                      contentAssessor.assess(paper);
+                      seoAssessor.assess(paper);
 
-                const final_scores = this.getScores(seoAssessor, contentAssessor);
+                      const final_scores = this.getScores(seoAssessor, contentAssessor);
 
-                console.log(final_scores);
+                      this.seo = final_scores.seo;
+                      this.content = final_scores.content;
+
+                      return;
+                    }
+                  });     
 
             },
             getScores(seoAssessor, contentAssessor) {
@@ -709,3 +762,57 @@
         }
     }
 </script>
+<style scoped>
+      hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+      }
+      .input.is-danger:focus {
+          border-color: #dc3545 !important;
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #dc3545 !important;
+          outline: 0 none;
+      }
+      .input.is-danger {
+          border-color: #dc3545 !important;
+      }
+      .help.is-danger {
+          color: #a94442; 
+      }
+      .seoanalysis .seo-score-icon {
+          margin-top: 8px;
+      }
+      .assessment-results .seo-score-icon {
+          float: left;
+          width: 12px;
+          height: 12px;
+          margin: 7px 10px 0 0;
+          border-radius: 50%;
+          background: #888;
+      }
+      .seo-score-icon.bad {
+          background-color: #dc3232;
+      }
+      .seo-score-icon.good {
+          background-color: #7ad03a;
+      }
+      .seo-score-icon.good {
+          background-color: #7ad03a;
+      }
+      .seo-score-icon.ok {
+          background-color: #ee7c1b;
+      }
+      ul {
+            list-style-position: outside;
+            margin-bottom: 32px;
+            padding-left: 20px;
+      }
+      ul li {
+            margin-bottom: 12px;
+            line-height: 1.4;
+      }
+      li.score {
+          list-style-type: none!important;
+      }
+</style>
