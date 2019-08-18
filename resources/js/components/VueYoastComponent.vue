@@ -662,25 +662,30 @@
                 </form> 
             </div>
             
-            <div v-if="seo.length" class=" border-top mb-3 col-md-12 seo-output output" id="output">
-                  <h3>SEO assessments</h3>
-                  <ul class="seoanalysis assessment-results">
-                        <li class="score d-flex" v-for="item in seo">
-                              <span class="seo-score-icon" :class="item.rating"></span>
-                              <span class="seo-score-text" v-html="item.text"></span>
-                        </li>
-                  </ul>
+            <div v-if="seo.length">
+                  <div class="col-md-12">
+                    <hr>
+                  </div>
+
+                  <div class="mb-3 col-md-12">
+                      <h3>SEO assessments</h3>
+                      <ul class="bulleted-list">
+                        <li class="col-md-12 p-2 pl-0 score seo-score-icon seo-score-text" :class="item.rating" v-for="item in seo" v-html="item.text"></li>
+                      </ul>
+                  </div>
             </div>
 
-            <div v-if="content.length" class="border-top mb-3 col-md-12 seo-output output" id="output">
+            <div v-if="content.length">
+                <div class="col-md-12">
+                  <hr>
+                </div>
+                <div  class="mb-3 col-md-12">
                   <h3>Content assessments</h3>
-                  <ul class="seoanalysis assessment-results">
-                        <li class="score d-flex" v-for="item in content">
-                              <span class="seo-score-icon" :class="item.rating"></span>
-                              <span class="seo-score-text" v-html="item.text"></span>
-                        </li>
+                  <ul class="bulleted-list">
+                    <li class="col-md-12 p-2 pl-0 score seo-score-icon seo-score-text" :class="item.rating" v-for="item in content" v-html="item.text"></li>
                   </ul>
-            </div>
+                </div>
+            </div>          
             
         </div>
     </div>
@@ -780,39 +785,37 @@
       .help.is-danger {
           color: #a94442; 
       }
-      .seoanalysis .seo-score-icon {
-          margin-top: 8px;
-      }
-      .assessment-results .seo-score-icon {
-          float: left;
-          width: 12px;
-          height: 12px;
-          margin: 7px 10px 0 0;
-          border-radius: 50%;
-          background: #888;
-      }
-      .seo-score-icon.bad {
-          background-color: #dc3232;
-      }
-      .seo-score-icon.good {
-          background-color: #7ad03a;
-      }
-      .seo-score-icon.good {
-          background-color: #7ad03a;
-      }
-      .seo-score-icon.ok {
-          background-color: #ee7c1b;
-      }
       ul {
-            list-style-position: outside;
-            margin-bottom: 32px;
-            padding-left: 20px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
       }
-      ul li {
-            margin-bottom: 12px;
-            line-height: 1.4;
+      .bulleted-list .seo-score-icon.bad:before {
+        border: 5px solid #dc3232;
       }
-      li.score {
-          list-style-type: none!important;
+      .bulleted-list .seo-score-icon.good:before {
+        border: 5px solid #7ad03a;
+      }
+      .bulleted-list .seo-score-icon.ok:before {
+        border: 5px solid #ee7c1b;
+      }
+      .bulleted-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+      .bulleted-list li:before {
+        content: '';
+        width: 0;
+        height: 0;
+        top: 16px;
+        left: 0;
+        z-index: 1;
+        margin-right: 8px;
+        position: absolute;
+      }
+      .bulleted-list li {
+        padding-left: 20px!important;
       }
 </style>
