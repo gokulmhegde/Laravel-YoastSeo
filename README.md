@@ -13,5 +13,12 @@ Steps to use:
  2. Install Node and then use npm install and run npm run prod.
  3. Open the Project homepage mainly Laravel Welcome Page (ie., http://larevel-yoast-vue/  OR localhost:8080/ ) which you should see a yoast form.
  
+# Special thanks to:
+
+ 1. mr-cms-yoast https://git.mreach.com/mr-cms/mr-cms-yoast
+ 2. netlify-cms-yoast-seo https://github.com/indigotree/netlify-cms-yoast-seo 
+
+    thier code helped me to understand and build YoastSEO for laravel using Vue
+ 
 # Upcoming Features
-Yoast snippet preview
+Yoast snippet preview in couple of days
