@@ -1,6 +1,7 @@
 # Follow these steps for any JS library
  
 1. Add this to package.json
+
         "devDependencies": {
             "cross-env": "^5.1",
             "lodash": "^4.17.5",
