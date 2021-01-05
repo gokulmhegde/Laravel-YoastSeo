@@ -11,7 +11,7 @@
         "all": "run-s development production"
     },
     "devDependencies": {
-        "axios": "^0.18",
+        "axios": "^0.21",
         "bootstrap": "^4.1.0",
         "cross-env": "^5.1",
         "jquery": "^3.5",
