@@ -171,6 +171,3 @@ Steps to use:
  2. netlify-cms-yoast-seo https://github.com/indigotree/netlify-cms-yoast-seo 
 
     thier code helped me to understand and build YoastSEO for laravel using VueJS
- 
-# Upcoming Features
-Yoast snippet preview in couple of days
